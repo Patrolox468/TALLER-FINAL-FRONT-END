@@ -30,7 +30,7 @@ function App() {
   }, [blocked]);
 
   // 4. FUNCIONES DE INTERACTIVIDAD
-  // REQUERIMIENTO DEL TALLER: Controla la inclusión/exclusión de favoritos
+  // REQUERIMIENTO DEL TALLER: Controla la inclusión/exclusión de favoritos en el panel lateral
   const toggleFavorite = (character) => {
     if (favorites.some(fav => fav.id === character.id)) {
       setFavorites(favorites.filter(fav => fav.id !== character.id));
@@ -39,7 +39,14 @@ function App() {
     }
   };
 
-  // REQUERIMIENTO DEL TALLER: Bloquea personajes y los remueve de favoritos automáticamente
+  // FUNCIONALIDAD EXTRA: Permite vaciar la lista de favoritos de una sola vez
+  const clearAllFavorites = () => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar todos tus favoritos?')) {
+      setFavorites([]);
+    }
+  };
+
+  // REQUERIMIENTO DEL TALLER: Bloquea personajes de la lista principal y los remueve de favoritos automáticamente
   const blockCharacter = (character) => {
     if (!blocked.some(b => b.id === character.id)) {
       setBlocked([...blocked, character]);
@@ -51,7 +58,7 @@ function App() {
     setBlocked(blocked.filter(b => b.id !== id));
   };
 
-  // 5. LÓGICA DE FILTRADO
+  // 5. LÓGICA DE FILTRADO CON EXCLUSIÓN DE BLOQUEADOS
   const filteredCharacters = characters.filter(char => {
     const matchesSearch = char.name.toLowerCase().includes(search.toLowerCase());
     const isBlocked = blocked.some(b => b.id === char.id);
@@ -68,11 +75,20 @@ function App() {
             <p className="text-sm text-gray-500">Desarrollado por: Patricio Alex Lagos Veliz</p> 
           </div>
           
-          {/* Etiquetas optimizadas para reflejar mejor los estados exigidos */}
-          <div className="flex gap-4 text-sm font-semibold">
+          <div className="flex gap-4 text-sm font-semibold flex-wrap items-center">
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded">Resultados: {filteredCharacters.length}</span>
             <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded">⭐ Panel Favoritos: {favorites.length}</span>
             <span className="bg-red-100 text-red-800 px-3 py-1 rounded">🚫 Lista Bloqueados: {blocked.length}</span>
+            
+            {/* Botón dinámico para limpiar favoritos */}
+            {favorites.length > 0 && (
+              <button 
+                onClick={clearAllFavorites}
+                className="bg-amber-500 hover:bg-amber-600 text-white text-xs px-2 py-1 rounded transition-colors shadow-sm font-bold"
+              >
+                Vaciar ⭐
+              </button>
+            )}
           </div>
         </header>
 
