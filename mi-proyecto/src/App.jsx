@@ -61,17 +61,18 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 p-4 flex flex-col justify-between">
       <div>
-        {/* ENCABEZADO CON IDENTIFICACIÓN Y ESTADÍSTICAS */}
+        {/* ENCABEZADO CON TEXTOS OPTIMIZADOS PARA PRESENTACIÓN */}
         <header className="mb-6 p-4 bg-white shadow rounded-lg flex justify-between items-center flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-blue-600">Taller React API - Rick & Morty</h1>
             <p className="text-sm text-gray-500">Desarrollado por: Patricio Alex Lagos Veliz</p> 
           </div>
           
+          {/* Etiquetas optimizadas para reflejar mejor los estados exigidos */}
           <div className="flex gap-4 text-sm font-semibold">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded">Visibles: {filteredCharacters.length}</span>
-            <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded">⭐ Favoritos: {favorites.length}</span>
-            <span className="bg-red-100 text-red-800 px-3 py-1 rounded">🚫 Bloqueados: {blocked.length}</span>
+            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded">Resultados: {filteredCharacters.length}</span>
+            <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded">⭐ Panel Favoritos: {favorites.length}</span>
+            <span className="bg-red-100 text-red-800 px-3 py-1 rounded">🚫 Lista Bloqueados: {blocked.length}</span>
           </div>
         </header>
 
@@ -127,7 +128,7 @@ function App() {
         </div>
       </div>
 
-      {/* COMPONENTE FOOTER AGREGADO PARA SECCIÓN EXTRA */}
+      {/* COMPONENTE FOOTER */}
       <footer className="mt-12 p-4 bg-white shadow rounded-lg text-center text-sm text-gray-500">
         <p>© 2026 Taller de Desarrollo de Aplicaciones Front-End. INACAP.</p>
         <p className="text-xs text-gray-400 mt-1">Evaluación de integración de APIs y manejo de estados en React.</p>
