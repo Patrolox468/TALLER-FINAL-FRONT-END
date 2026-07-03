@@ -4,7 +4,7 @@ import CharacterList from './components/CharacterList';
 import Sidebar from './components/Sidebar';
 
 function App() {
-  // 1. LLAMADA A LA API: Traemos los personajes usando nuestro hook personalizado
+  // 1. LLAMADA A LA API
   const { data: characters, loading, error } = useFetch('https://rickandmortyapi.com/api/character');
   
   // 2. ESTADOS GLOBALES CON LOCALSTORAGE
@@ -30,7 +30,6 @@ function App() {
   }, [blocked]);
 
   // 4. FUNCIONES DE INTERACTIVIDAD
-
   // REQUERIMIENTO DEL TALLER: Controla la inclusión/exclusión de favoritos en el panel lateral
   const toggleFavorite = (character) => {
     if (favorites.some(fav => fav.id === character.id)) {
@@ -44,11 +43,10 @@ function App() {
   const blockCharacter = (character) => {
     if (!blocked.some(b => b.id === character.id)) {
       setBlocked([...blocked, character]);
-      setFavorites(favorites.filter(fav => fav.id !== character.id)); // Regla estricta de exclusión mutua
+      setFavorites(favorites.filter(fav => fav.id !== character.id));
     }
   };
 
-  // Permite desbloquear elementos desde el panel lateral para retornarlos al flujo
   const unblockCharacter = (id) => {
     setBlocked(blocked.filter(b => b.id !== id));
   };
@@ -75,7 +73,8 @@ function App() {
         </div>
       </header>
 
-      <div className="mb-6 max-w-md mx-auto">
+      {/* BARRA DE BÚSQUEDA CON BOTÓN DE LIMPIEZA DINÁMICA */}
+      <div className="mb-6 max-w-md mx-auto flex gap-2">
         <input
           type="text"
           placeholder="Buscar personaje por nombre..."
@@ -83,6 +82,14 @@ function App() {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        {search && (
+          <button
+            onClick={() => setSearch('')}
+            className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 rounded-lg transition-colors shadow-sm"
+          >
+            Limpiar
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
